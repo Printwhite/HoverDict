@@ -1,7 +1,7 @@
-package com.hoverdict.ui
+package com.hovertranslate.ui
 
-import com.hoverdict.settings.HoverDictSettings
-import com.hoverdict.service.DictionaryService
+import com.hovertranslate.settings.HoverTranslateSettings
+import com.hovertranslate.service.DictionaryService
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.ui.JBColor
 import com.intellij.util.ui.JBUI
@@ -19,14 +19,21 @@ class SettingsDialog : DialogWrapper(true) {
     private val toggleKeyField = JTextField(12)
     private val settingsKeyField = JTextField(12)
 
+    private var mainPanel: JPanel? = null
+
+    private fun isZh(): Boolean = langCombo.selectedIndex == 0
+
+    private fun t(zh: String, en: String): String = if (isZh()) zh else en
+
     init {
-        title = "HoverDict Settings"
+        title = "Hover Translate"
         init()
         loadSettings()
+        langCombo.addActionListener { rebuildUI() }
     }
 
     private fun loadSettings() {
-        val s = HoverDictSettings.getInstance().state
+        val s = HoverTranslateSettings.getInstance().state
         enabledCb.isSelected = s.enabled
         splitCb.isSelected = s.splitIdentifiers
         delaySpinner.value = s.hoverDelayMs
@@ -37,31 +44,44 @@ class SettingsDialog : DialogWrapper(true) {
         settingsKeyField.text = s.settingsShortcut
     }
 
+    private fun rebuildUI() {
+        val panel = mainPanel ?: return
+        panel.removeAll()
+        buildContent(panel)
+        panel.revalidate()
+        panel.repaint()
+    }
+
     override fun createCenterPanel(): JComponent {
         val p = JPanel(GridBagLayout())
         p.preferredSize = Dimension(440, 380)
         p.border = JBUI.Borders.empty(12, 20, 8, 20)
+        mainPanel = p
+        buildContent(p)
+        return p
+    }
 
+    private fun buildContent(p: JPanel) {
         val g = GridBagConstraints()
         g.anchor = GridBagConstraints.WEST
         var r = 0
         val accent = Color(59, 130, 246)
 
-        r = section(p, g, r, "General", accent)
-        r = row(p, g, r, "Enable Translation", enabledCb)
-        r = row(p, g, r, "Split Identifiers", splitCb)
+        r = section(p, g, r, t("常规", "General"), accent)
+        r = row(p, g, r, t("启用翻译", "Enable Translation"), enabledCb)
+        r = row(p, g, r, t("拆分标识符", "Split Identifiers"), splitCb)
 
-        r = section(p, g, r, "Display", accent)
-        r = row(p, g, r, "Hover Delay (ms)", delaySpinner)
-        r = row(p, g, r, "Font Size", fontSpinner)
-        r = row(p, g, r, "Popup Opacity %", opacitySpinner)
+        r = section(p, g, r, t("显示", "Display"), accent)
+        r = row(p, g, r, t("悬停延迟 (ms)", "Hover Delay (ms)"), delaySpinner)
+        r = row(p, g, r, t("字体大小", "Font Size"), fontSpinner)
+        r = row(p, g, r, t("弹窗透明度 %", "Popup Opacity %"), opacitySpinner)
 
-        r = section(p, g, r, "Language", accent)
-        r = row(p, g, r, "Preferred Language", langCombo)
+        r = section(p, g, r, t("语言", "Language"), accent)
+        r = row(p, g, r, t("首选语言", "Preferred Language"), langCombo)
 
-        r = section(p, g, r, "Shortcuts", accent)
-        r = row(p, g, r, "Toggle Translation", toggleKeyField)
-        r = row(p, g, r, "Open Settings", settingsKeyField)
+        r = section(p, g, r, t("快捷键", "Shortcuts"), accent)
+        r = row(p, g, r, t("开关翻译", "Toggle Translation"), toggleKeyField)
+        r = row(p, g, r, t("打开设置", "Open Settings"), settingsKeyField)
 
         // Footer
         g.gridx = 0; g.gridy = r; g.gridwidth = 2
@@ -69,14 +89,12 @@ class SettingsDialog : DialogWrapper(true) {
         g.fill = GridBagConstraints.HORIZONTAL
         val footer = JPanel(BorderLayout())
         footer.isOpaque = false
-        val info = JLabel("Dictionary: ${DictionaryService.getDictionarySize()} entries")
+        val dictSize = DictionaryService.getDictionarySize()
+        val info = JLabel(t("词典：${dictSize} 条", "Dictionary: ${dictSize} entries"))
         info.font = Font("SansSerif", Font.PLAIN, 11)
         info.foreground = JBColor.GRAY
         footer.add(info, BorderLayout.WEST)
-
         p.add(footer, g)
-
-        return p
     }
 
     private fun section(p: JPanel, g: GridBagConstraints, r: Int, text: String, color: Color): Int {
@@ -101,7 +119,7 @@ class SettingsDialog : DialogWrapper(true) {
     }
 
     override fun doOKAction() {
-        val s = HoverDictSettings.getInstance().state
+        val s = HoverTranslateSettings.getInstance().state
         s.enabled = enabledCb.isSelected
         s.splitIdentifiers = splitCb.isSelected
         s.hoverDelayMs = delaySpinner.value as Int

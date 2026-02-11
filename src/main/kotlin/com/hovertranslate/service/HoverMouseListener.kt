@@ -1,7 +1,7 @@
-package com.hoverdict.service
+package com.hovertranslate.service
 
-import com.hoverdict.settings.HoverDictSettings
-import com.hoverdict.ui.TranslationPopup
+import com.hovertranslate.settings.HoverTranslateSettings
+import com.hovertranslate.ui.TranslationPopup
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.event.EditorMouseEvent
 import com.intellij.openapi.editor.event.EditorMouseEventArea
@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 class HoverMouseListener : EditorMouseListener, EditorMouseMotionListener {
 
     private val scheduler = Executors.newSingleThreadScheduledExecutor { r ->
-        Thread(r, "HoverDict-Scheduler").apply { isDaemon = true }
+        Thread(r, "HoverTranslate-Scheduler").apply { isDaemon = true }
     }
 
     @Volatile
@@ -28,7 +28,7 @@ class HoverMouseListener : EditorMouseListener, EditorMouseMotionListener {
     private var lastPoint: Point? = null
 
     override fun mouseMoved(e: EditorMouseEvent) {
-        val settings = HoverDictSettings.getInstance().state
+        val settings = HoverTranslateSettings.getInstance().state
         if (!settings.enabled) return
         if (e.area != EditorMouseEventArea.EDITING_AREA) {
             cancelAndHide()

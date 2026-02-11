@@ -7,4 +7,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "HoverDict"
+rootProject.name = "HoverTranslate"

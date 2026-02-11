@@ -1,26 +1,28 @@
 <idea-plugin>
     <id>com.hoverdict.plugin</id>
-    <name>HoverDict</name>
-    <version>1.0.0</version>
-    <vendor email="helloxiaojii@gmail.com" url="https://github.com/hoverdict">HoverDict Team</vendor>
+    <name>Hover Translate</name>
+    <version>1.0.0.1</version>
+    <vendor email="helloxiaojii@gmail.com" url="https://github.com/hoverdict">Hover Translate Team</vendor>
 
     <description><![CDATA[
-    <p><b>HoverDict</b> — Instant offline hover translation for JetBrains IDEs.</p>
-    <p>Hover over any English word in the editor to see its Chinese translation.
-    Powered by ECDICT open-source dictionary with 700,000+ entries.
-    No API keys, no network required.</p>
+    <p>Hover Translate — Offline English-Chinese hover translation plugin for JetBrains IDEs. 700K+ dictionary entries, no API keys, no network required.</p>
+
+    <p>离线英汉悬停翻译插件，鼠标悬停即可翻译，无需联网，开箱即用。</p>
+
     <ul>
-        <li>Instant hover translation with configurable delay</li>
-        <li>700K+ word offline dictionary (EN↔ZH)</li>
-        <li>Smart camelCase and snake_case identifier splitting</li>
-        <li>Multi-monitor aware popup positioning</li>
-        <li>Adapts to both Light and Dark themes</li>
+        <li>Hover over any word to see its Chinese translation instantly</li>
+        <li>700K+ offline dictionary powered by ECDICT</li>
+        <li>Smart camelCase / snake_case identifier splitting</li>
+        <li>Dark and Light theme support</li>
+        <li>Configurable delay, font size, opacity and shortcuts</li>
     </ul>
-    <p><b>Usage:</b> Install → hover over any word → done. Settings: <code>Tools → HoverDict</code></p>
+
+    <p>Usage: Install → hover over any word → done. Settings: <code>Tools → Hover Translate</code></p>
     ]]></description>
 
     <change-notes><![CDATA[
-    <b>1.0.0</b> — Initial release: offline EN↔ZH dictionary, hover translation, identifier splitting, multi-monitor support.
+    <b>1.0.0.1</b> — Cleaned up plugin structure, improved user experience.<br/>
+    <b>1.0.0</b> — Initial release.
     ]]></change-notes>
 
     <idea-version since-build="232" until-build="252.*"/>
@@ -29,36 +31,35 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService
-                serviceImplementation="com.hoverdict.settings.HoverDictSettings"/>
+                serviceImplementation="com.hovertranslate.settings.HoverTranslateSettings"/>
         <postStartupActivity
-                implementation="com.hoverdict.PluginStartupActivity"/>
-        <notificationGroup id="HoverDict.Notifications"
+                implementation="com.hovertranslate.PluginStartupActivity"/>
+        <notificationGroup id="HoverTranslate.Notifications"
                            displayType="BALLOON"
                            isLogByDefault="false"/>
     </extensions>
 
     <actions>
-        <action id="HoverDict.Toolbar"
-                class="com.hoverdict.actions.HoverDictToolbarAction"
-                text="HoverDict"
-                description="HoverDict hover translation"
-                icon="/icons/hoverdict16.svg">
+        <action id="HoverTranslate.Toolbar"
+                class="com.hovertranslate.actions.HoverTranslateToolbarAction"
+                text="Hover Translate"
+                description="Hover Translate">
             <add-to-group group-id="NavBarToolBar" anchor="last"/>
             <add-to-group group-id="MainToolbarRight" anchor="last"/>
         </action>
 
-        <group id="HoverDict.Menu" text="HoverDict" popup="true">
+        <group id="HoverTranslate.Menu" text="Hover Translate" popup="true">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
-            <action id="HoverDict.Toggle"
-                    class="com.hoverdict.actions.ToggleTranslationAction"
+            <action id="HoverTranslate.Toggle"
+                    class="com.hovertranslate.actions.ToggleTranslationAction"
                     text="Toggle Translation"
                     description="Enable or disable hover translation">
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift T"/>
             </action>
-            <action id="HoverDict.Settings"
-                    class="com.hoverdict.actions.OpenSettingsAction"
-                    text="HoverDict Settings"
-                    description="Open HoverDict settings">
+            <action id="HoverTranslate.Settings"
+                    class="com.hovertranslate.actions.OpenSettingsAction"
+                    text="Hover Translate Settings"
+                    description="Open Hover Translate settings">
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift D"/>
             </action>
         </group>

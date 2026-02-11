@@ -1,6 +1,6 @@
-package com.hoverdict.actions
+package com.hovertranslate.actions
 
-import com.hoverdict.ui.SettingsDialog
+import com.hovertranslate.ui.SettingsDialog
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 

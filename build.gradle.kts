@@ -3,8 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "1.9.25"
     id("org.jetbrains.intellij") version "1.17.4"
 }
-group = "com.hoverdict"
-version = "1.0.0"
+group = "com.hovertranslate"
+version = "1.0.0.1"
 repositories {
     mavenCentral()
 }

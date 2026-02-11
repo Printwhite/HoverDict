@@ -1,4 +1,4 @@
-package com.hoverdict.ui
+package com.hovertranslate.ui
 
 import com.intellij.openapi.editor.Editor
 import com.intellij.ui.JBColor
@@ -80,7 +80,7 @@ class TranslationPopup private constructor() {
 
         val badgePanel = JPanel(FlowLayout(FlowLayout.LEFT, 0, 0))
         badgePanel.isOpaque = false
-        val badge = JLabel("HoverDict")
+        val badge = JLabel("Hover Translate")
         badge.font = Font("SansSerif", Font.BOLD, 11)
         badge.foreground = accentColor
         badgePanel.add(badge)
@@ -103,7 +103,7 @@ class TranslationPopup private constructor() {
         })
         topBar.add(closeBtn, BorderLayout.EAST)
 
-        val fontSize = com.hoverdict.settings.HoverDictSettings.getInstance().state.fontSize
+        val fontSize = com.hovertranslate.settings.HoverTranslateSettings.getInstance().state.fontSize
         val scaledSize = (fontSize * 1.15).toInt().coerceAtLeast(14)
 
         val htmlText = text.replace("\n", "<br style='margin:4px 0;'>")

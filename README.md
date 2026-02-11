@@ -1,27 +1,40 @@
-# HoverDict
+# Hover Translate - 悬停翻译 英汉词典
 
-> Offline hover translation plugin for JetBrains IDEs. No API keys. No network. Just hover and read.
+> JetBrains IDE 离线悬停翻译插件。无需 API Key，无需联网，悬停即译。
 
-## What it does
+## 功能介绍
 
-HoverDict translates words in your editor when you hover over them. It ships with a built-in English↔Chinese dictionary (~970 entries covering common programming and general vocabulary). Everything runs locally — no third-party API calls, no telemetry, no network requests.
+Hover Translate 是一款专为开发者打造的离线英汉翻译插件。鼠标悬停在编辑器中的任意英文单词上，即刻显示中文翻译。内置基于 ECDICT 的 70 万+词条英汉词典，完全本地运行，无任何网络请求。
 
-## Key features
+## 核心特性
 
-- **Instant lookup** — HashMap-backed dictionary with O(1) access. Translation text renders in the same frame as the popup.
-- **Identifier splitting** — Automatically breaks `getUserName` → `get` + `user` + `name` and `get_user_name` → `get` + `user` + `name`, translating each segment.
-- **Multi-monitor aware** — Popup position is calculated against the physical screen bounds where your cursor actually is, not the primary monitor.
-- **Configurable** — Hover delay, font size, popup opacity, preferred language, shortcuts — all adjustable from the settings panel (`Ctrl+Shift+D`).
-- **Sponsor & ad framework** — Built-in sponsor dialog with QR code slot, contact info section, and ad placement area. Shown on first launch (dismissable).
+- **悬停即译** — 基于 HashMap 的 O(1) 查询，翻译结果即时呈现
+- **智能标识符拆分** — 自动识别 `getUserName` → `get` + `user` + `name` 和 `get_user_name` → `get` + `user` + `name`，逐词翻译
+- **多显示器适配** — 弹窗位置智能计算，始终跟随光标所在的物理屏幕
+- **高度可定制** — 悬停延迟、字体大小、弹窗透明度、首选语言、快捷键均可在设置面板中调整（`Ctrl+Shift+D`）
+- **主题自适应** — 自动适配 IDE 的深色和浅色主题
 
-## Compatibility
+## 使用方法
 
-| IDE | Supported |
-|-----|-----------|
+安装插件 → 悬停在单词上 → 完成！
+
+- `Ctrl+Shift+T` — 开关翻译
+- `Ctrl+Shift+D` — 打开设置
+- `Tools → Hover Translate` — 菜单入口
+
+## 兼容性
+
+| IDE | 支持版本 |
+|-----|---------|
 | IntelliJ IDEA | ✅ 2023.2+ |
-| Rider | ✅ 2023.2+ |
-| WebStorm | ✅ 2023.2+ |
 | PyCharm | ✅ 2023.2+ |
+| WebStorm | ✅ 2023.2+ |
 | GoLand | ✅ 2023.2+ |
+| Rider | ✅ 2023.2+ |
 | CLion | ✅ 2023.2+ |
-| All JetBrains IDEs | ✅ 2023.2+ |
+| 所有 JetBrains IDE | ✅ 2023.2+ |
+
+## 更新日志
+
+- **1.0.0.1** — 精简插件结构，移除非必要模块，优化用户体验
+- **1.0.0** — 首次发布：离线英汉词典、悬停翻译、标识符智能拆分、多显示器支持

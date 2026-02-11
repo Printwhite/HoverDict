@@ -1,12 +1,12 @@
-package com.hoverdict.settings
+package com.hovertranslate.settings
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 
-@State(name = "HoverDictSettings", storages = [Storage("HoverDictSettings.xml")])
-class HoverDictSettings : PersistentStateComponent<HoverDictSettings.State> {
+@State(name = "HoverTranslateSettings", storages = [Storage("HoverTranslateSettings.xml")])
+class HoverTranslateSettings : PersistentStateComponent<HoverTranslateSettings.State> {
 
     data class State(
         var enabled: Boolean = true,
@@ -28,8 +28,8 @@ class HoverDictSettings : PersistentStateComponent<HoverDictSettings.State> {
     }
 
     companion object {
-        fun getInstance(): HoverDictSettings {
-            return ApplicationManager.getApplication().getService(HoverDictSettings::class.java)
+        fun getInstance(): HoverTranslateSettings {
+            return ApplicationManager.getApplication().getService(HoverTranslateSettings::class.java)
         }
     }
 }

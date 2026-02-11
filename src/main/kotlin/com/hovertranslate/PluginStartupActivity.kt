@@ -1,7 +1,7 @@
-package com.hoverdict
+package com.hovertranslate
 
-import com.hoverdict.service.DictionaryService
-import com.hoverdict.service.HoverMouseListener
+import com.hovertranslate.service.DictionaryService
+import com.hovertranslate.service.HoverMouseListener
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.invokeLater
 import com.intellij.openapi.diagnostic.Logger
@@ -16,14 +16,14 @@ class PluginStartupActivity : ProjectActivity {
     private val LOG = Logger.getInstance(PluginStartupActivity::class.java)
 
     override suspend fun execute(project: Project) {
-        LOG.info("HoverDict: startup for project: ${project.name}")
+        LOG.info("Hover Translate: startup for project: ${project.name}")
 
         ApplicationManager.getApplication().executeOnPooledThread {
             try {
                 DictionaryService.ensureLoaded()
-                LOG.info("HoverDict: dictionary loaded, size=${DictionaryService.getDictionarySize()}")
+                LOG.info("Hover Translate: dictionary loaded, size=${DictionaryService.getDictionarySize()}")
             } catch (e: Exception) {
-                LOG.error("HoverDict: failed to load dictionary", e)
+                LOG.error("Hover Translate: failed to load dictionary", e)
             }
         }
 
@@ -42,7 +42,7 @@ class PluginStartupActivity : ProjectActivity {
                     }
                 }, project)
             } catch (e: Exception) {
-                LOG.error("HoverDict: failed to register listeners", e)
+                LOG.error("Hover Translate: failed to register listeners", e)
             }
         }
     }

@@ -1,6 +1,6 @@
-package com.hoverdict.service
+package com.hovertranslate.service
 
-import com.hoverdict.settings.HoverDictSettings
+import com.hovertranslate.settings.HoverTranslateSettings
 import com.intellij.openapi.diagnostic.Logger
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -22,13 +22,13 @@ object DictionaryService {
             val t = System.currentTimeMillis()
             loadDictionary()
             loaded = true
-            LOG.info("HoverDict: dictionary loaded in ${System.currentTimeMillis() - t}ms, entries=${enToZh.size}")
+            LOG.info("Hover Translate: dictionary loaded in ${System.currentTimeMillis() - t}ms, entries=${enToZh.size}")
         }
     }
 
     private fun loadDictionary() {
         val stream = DictionaryService::class.java.getResourceAsStream("/dictionary/en_zh.dict")
-        if (stream == null) { LOG.warn("HoverDict: en_zh.dict not found!"); return }
+        if (stream == null) { LOG.warn("Hover Translate: en_zh.dict not found!"); return }
         BufferedReader(InputStreamReader(stream, Charsets.UTF_8), 1024 * 64).use { reader ->
             reader.forEachLine { line ->
                 val tab = line.indexOf('\t')
@@ -48,7 +48,7 @@ object DictionaryService {
     fun translate(word: String): String? {
         ensureLoaded()
         val lower = word.trim().lowercase()
-        val s = HoverDictSettings.getInstance().state
+        val s = HoverTranslateSettings.getInstance().state
         if (s.preferredLanguage == "zh") {
             enToZh[lower]?.let { return it }
             zhToEn[word.trim()]?.let { return it }
