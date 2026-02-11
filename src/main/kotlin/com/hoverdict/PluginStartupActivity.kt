@@ -2,8 +2,6 @@ package com.hoverdict
 
 import com.hoverdict.service.DictionaryService
 import com.hoverdict.service.HoverMouseListener
-import com.hoverdict.settings.HoverDictSettings
-import com.hoverdict.ui.SponsorDialog
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.invokeLater
 import com.intellij.openapi.diagnostic.Logger
@@ -47,17 +45,5 @@ class PluginStartupActivity : ProjectActivity {
                 LOG.error("HoverDict: failed to register listeners", e)
             }
         }
-
-        val settings = HoverDictSettings.getInstance().state
-        if (settings.showSponsorOnStartup && !SponsorSessionState.isDismissedThisSession) {
-            invokeLater {
-                SponsorDialog().show()
-            }
-        }
     }
-}
-
-object SponsorSessionState {
-    @Volatile
-    var isDismissedThisSession: Boolean = false
 }

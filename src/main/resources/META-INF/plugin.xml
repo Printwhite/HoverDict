@@ -61,10 +61,6 @@
                     description="Open HoverDict settings">
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift D"/>
             </action>
-            <action id="HoverDict.Sponsor"
-                    class="com.hoverdict.actions.OpenSponsorAction"
-                    text="About"
-                    description="About HoverDict"/>
         </group>
     </actions>
 </idea-plugin>

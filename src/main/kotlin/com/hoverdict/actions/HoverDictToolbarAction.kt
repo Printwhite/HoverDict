@@ -15,7 +15,6 @@ class HoverDictToolbarAction : AnAction(
     override fun actionPerformed(e: AnActionEvent) {
         val am = ActionManager.getInstance()
         val group = DefaultActionGroup().apply {
-            add(am.getAction("HoverDict.Sponsor"))
             add(am.getAction("HoverDict.Settings"))
             addSeparator()
             add(am.getAction("HoverDict.Toggle"))

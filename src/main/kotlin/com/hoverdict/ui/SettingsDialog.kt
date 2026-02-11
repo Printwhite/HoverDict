@@ -12,7 +12,6 @@ class SettingsDialog : DialogWrapper(true) {
 
     private val enabledCb = JCheckBox()
     private val splitCb = JCheckBox()
-    private val showOnStartupCb = JCheckBox()
     private val delaySpinner = JSpinner(SpinnerNumberModel(300, 50, 2000, 50))
     private val fontSpinner = JSpinner(SpinnerNumberModel(15, 10, 28, 1))
     private val opacitySpinner = JSpinner(SpinnerNumberModel(95, 50, 100, 5))
@@ -30,7 +29,6 @@ class SettingsDialog : DialogWrapper(true) {
         val s = HoverDictSettings.getInstance().state
         enabledCb.isSelected = s.enabled
         splitCb.isSelected = s.splitIdentifiers
-        showOnStartupCb.isSelected = s.showSponsorOnStartup
         delaySpinner.value = s.hoverDelayMs
         fontSpinner.value = s.fontSize
         opacitySpinner.value = s.popupOpacity
@@ -52,7 +50,6 @@ class SettingsDialog : DialogWrapper(true) {
         r = section(p, g, r, "General", accent)
         r = row(p, g, r, "Enable Translation", enabledCb)
         r = row(p, g, r, "Split Identifiers", splitCb)
-        r = row(p, g, r, "Show Intro on Startup", showOnStartupCb)
 
         r = section(p, g, r, "Display", accent)
         r = row(p, g, r, "Hover Delay (ms)", delaySpinner)
@@ -76,10 +73,7 @@ class SettingsDialog : DialogWrapper(true) {
         info.font = Font("SansSerif", Font.PLAIN, 11)
         info.foreground = JBColor.GRAY
         footer.add(info, BorderLayout.WEST)
-        val btn = JButton("About")
-        btn.font = Font("SansSerif", Font.PLAIN, 12)
-        btn.addActionListener { SponsorDialog().show() }
-        footer.add(btn, BorderLayout.EAST)
+
         p.add(footer, g)
 
         return p
@@ -110,7 +104,6 @@ class SettingsDialog : DialogWrapper(true) {
         val s = HoverDictSettings.getInstance().state
         s.enabled = enabledCb.isSelected
         s.splitIdentifiers = splitCb.isSelected
-        s.showSponsorOnStartup = showOnStartupCb.isSelected
         s.hoverDelayMs = delaySpinner.value as Int
         s.fontSize = fontSpinner.value as Int
         s.popupOpacity = opacitySpinner.value as Int

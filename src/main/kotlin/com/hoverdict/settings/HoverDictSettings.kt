@@ -12,7 +12,6 @@ class HoverDictSettings : PersistentStateComponent<HoverDictSettings.State> {
         var enabled: Boolean = true,
         var hoverDelayMs: Int = 300,
         var preferredLanguage: String = "zh",
-        var showSponsorOnStartup: Boolean = true,
         var toggleShortcut: String = "ctrl shift T",
         var settingsShortcut: String = "ctrl shift D",
         var popupOpacity: Int = 95,
